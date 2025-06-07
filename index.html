@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Himani! 🎉</title>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ffcce6 0%, #ff99cc 100%);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .fancy-text {
+            font-family: 'Dancing Script', cursive;
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0% { transform: translate(0, 0px); }
+            50% { transform: translate(0, 15px); }
+            100% { transform: translate(0, -0px); }
+        }
+        .heart {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .photo-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        .photo-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .photo-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .polaroid {
+            background: white;
+            padding: 15px 15px 40px 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transform: rotate(-5deg);
+            transition: all 0.3s ease;
+        }
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+        .polaroid-caption {
+            text-align: center;
+            margin-top: 10px;
+            font-family: 'Dancing Script', cursive;
+            color: #333;
+        }
+        .balloon {
+            position: absolute;
+            width: 40px;
+            height: 50px;
+            background: #ff4081;
+            border-radius: 50%;
+            box-shadow: inset -7px -7px 10px rgba(0,0,0,0.1);
+            animation: float 8s ease-in-out infinite;
+            z-index: -1;
+        }
+        .balloon:before {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 50px;
+            background: #b2b2b2;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-100px) rotate(5deg); }
+        }
+        .cake-container {
+            position: relative;
+            width: 250px;
+            height: 200px;
+            margin: 0 auto;
+        }
+        .cake {
+            width: 200px;
+            height: 100px;
+            background: linear-gradient(to bottom, #f9c5d1 0%, #f999b7 100%);
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            margin: 0 auto;
+        }
+        .cake-top {
+            width: 220px;
+            height: 20px;
+            background: linear-gradient(to bottom, #fce4ec 0%, #f8bbd0 100%);
+            border-radius: 50%;
+            position: absolute;
+            top: -10px;
+            left: -10px;
+        }
+        .candle {
+            width: 10px;
+            height: 40px;
+            background: linear-gradient(to bottom, #fff176 0%, #f57f17 100%);
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+        }
+        .flame {
+            width: 15px;
+            height: 30px;
+            background: linear-gradient(to bottom, #ffff00 0%, #ff5722 100%);
+            border-radius: 50% 50% 20% 20%;
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px #ff9800, 0 0 40px #ffeb3b;
+            animation: flicker 0.5s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1); opacity: 1; }
+            100% { transform: translateX(-50%) scale(1.1, 0.9); opacity: 0.8; }
+        }
+        .shayari-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-left: 4px solid #ff4081;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid #ff4081;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: .15em;
+            animation: typing 3.5s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #ff4081; }
+        }
+        .message-bottle {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            position: relative;
+            margin: 30px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .message-bottle:before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #e3f2fd;
+            border-radius: 50%;
+        }
+        .message-bottle:after {
+            content: "";
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: #bbdefb;
+            border-radius: 50%;
+            z-index: -1;
+        }
+        .gift-box {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ff4081 0%, #c2185b 100%);
+            position: relative;
+            margin: 30px auto;
+            transform-style: preserve-3d;
+            transform: rotateX(20deg) rotateY(20deg);
+            animation: gift-rotate 5s infinite linear;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .gift-box:before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background: rgba(255,255,255,0.3);
+            top: 40px;
+        }
+        .gift-box:after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 100%;
+            background: rgba(255,255,255,0.3);
+            left: 40px;
+        }
+        .gift-lid {
+            width: 110px;
+            height: 20px;
+            background: linear-gradient(135deg, #ff80ab 0%, #e91e63 100%);
+            position: absolute;
+            top: -20px;
+            left: -5px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+        .gift-bow {
+            width: 40px;
+            height: 40px;
+            background: #4caf50;
+            position: absolute;
+            top: -30px;
+            left: 30px;
+            border-radius: 50%;
+        }
+        .gift-bow:before, .gift-bow:after {
+            content: "";
+            position: absolute;
+            width: 60px;
+            height: 20px;
+            background: #4caf50;
+            border-radius: 10px;
+        }
+        .gift-bow:before {
+            transform: rotate(45deg);
+            top: 10px;
+            left: -10px;
+        }
+        .gift-bow:after {
+            transform: rotate(-45deg);
+            top: 10px;
+            left: -10px;
+        }
+        @keyframes gift-rotate {
+            0% { transform: rotateX(20deg) rotateY(0deg); }
+            100% { transform: rotateX(20deg) rotateY(360deg); }
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center p-4 relative">
+    <!-- Balloons -->
+    <div class="balloon" style="left: 10%; top: 10%; background: #ff4081; animation-delay: 0s;"></div>
+    <div class="balloon" style="left: 20%; top: 20%; background: #ffeb3b; animation-delay: 1s;"></div>
+    <div class="balloon" style="left: 80%; top: 15%; background: #4caf50; animation-delay: 2s;"></div>
+    <div class="balloon" style="left: 70%; top: 25%; background: #2196f3; animation-delay: 3s;"></div>
+    <div class="balloon" style="left: 30%; top: 5%; background: #9c27b0; animation-delay: 4s;"></div>
+    
+    <!-- Birthday Card Container -->
+    <div class="max-w-2xl w-full bg-white rounded-2xl shadow-2xl p-8 m-4 relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-pink-400 to-purple-500"></div>
+        
+        <!-- Birthday Message -->
+        <div class="text-center mb-8">
+            <h1 class="fancy-text text-5xl mb-4 text-pink-500 floating">Happy Birthday Himani! 🎉</h1>
+            <p class="text-gray-700 leading-relaxed">
+                On your special day, I want to celebrate the amazing person you are! May your day be as beautiful and radiant as you are, filled with love, laughter, and unforgettable moments.
+            </p>
+        </div>
+
+        <!-- Virtual Cake with Candles -->
+        <div class="cake-container mb-8">
+            <div class="cake">
+                <div class="cake-top"></div>
+                <div class="candle" id="candle">
+                    <div class="flame" id="flame"></div>
+                </div>
+            </div>
+            <p class="text-center mt-4 fancy-text text-xl">Make a wish and blow the candle!</p>
+            <button id="blowCandleBtn" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-full hover:bg-blue-600 transition-all">
+                <i class="bi bi-wind"></i> Blow Candle
+            </button>
+        </div>
+
+        <!-- Special Message Bottle -->
+        <div class="message-bottle">
+            <h2 class="fancy-text text-3xl text-center text-blue-500 mb-4">A Special Message in a Bottle</h2>
+            <p class="text-gray-700 leading-relaxed text-center">
+                "Himani, you're like a rare diamond - precious, beautiful, and unique in every way. Your smile brightens the darkest days and your heart warms those around you. May this year bring you endless joy and success in all your endeavors!"
+            </p>
+        </div>
+
+        <!-- Motivational Shayari -->
+        <div class="shayari-box">
+            <h3 class="fancy-text text-2xl text-center text-pink-600 mb-3">Dear Himani</h3>
+            <p class="text-center italic text-gray-700">
+            </p>
+            <p class="text-center mt-4 text-gray-600">
+                (Don't fear the storms, Himani,<br>
+                Keep moving towards your destination,<br>
+                Embrace every challenge of life,<br>
+                That's the real sign of victory.)
+            </p>
+        </div>
+
+        <!-- Interactive Gift Box -->
+        <div class="text-center mt-8">
+            <h2 class="fancy-text text-3xl text-purple-500 mb-4">A Virtual Gift for You</h2>
+            <div class="gift-box" id="giftBox">
+                <div class="gift-lid"></div>
+                <div class="gift-bow"></div>
+            </div>
+            <button id="openGiftBtn" class="mt-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-2 rounded-full hover:shadow-lg transform hover:scale-105 transition-all">
+                Open Your Gift
+            </button>
+            <div id="giftMessage" class="hidden mt-4 p-4 bg-yellow-50 rounded-lg">
+                <p class="fancy-text text-xl">The real gift is our friendship and the wonderful memories we've created together! ❤️</p>
+            </div>
+        </div>
+
+        <!-- Photo Gallery -->
+        <div class="mt-8">
+            <h2 class="fancy-text text-3xl text-center text-purple-500 mb-4">Beautiful Memories</h2>
+            <div class="photo-gallery">
+                <div class="photo-item">
+                    <img src="WhatsApp Image 2025-06-07 at 22.28.23_bc8c9937.jpg" alt="Himani 1">
+                </div>
+                <div class="photo-item">
+                    <img src="WhatsApp Image 2025-06-07 at 22.28.23_a1ddcd5e.jpg" alt="Himani 2">
+                </div>
+                <div class="photo-item">
+                    <img src="WhatsApp Image 2025-06-07 at 22.28.23_212a248b.jpg" alt="Himani 3">
+                </div>
+                <div class="photo-item">
+                    <img src="WhatsApp Image 2025-06-07 at 22.28.23_15a47abe.jpg" alt="Himani 4">
+                </div>
+                <div class="photo-item">
+                    <img src="WhatsApp Image 2025-06-07 at 22.28.23_9fabf956.jpg" alt="Himani 5">
+                </div>
+                <div class="photo-item polaroid">
+                    <img src="WhatsApp Image 2025-06-07 at 22.28.22_c675c01b.jpg" alt="Himani 6">
+                    <div class="polaroid-caption">Beautiful Himani</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Birthday Wishes -->
+        <div class="text-center mt-8">
+            <p class="fancy-text text-3xl text-purple-500 mb-4">Wishing you...</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-pink-50 p-3 rounded-lg hover:bg-pink-100 transition-all">
+                    <i class="bi bi-stars text-2xl text-yellow-500"></i>
+                    <p>Endless Joy</p>
+                </div>
+                <div class="bg-purple-50 p-3 rounded-lg hover:bg-purple-100 transition-all">
+                    <i class="bi bi-heart-fill text-2xl text-red-500 heart"></i>
+                    <p>Boundless Love</p>
+                </div>
+                <div class="bg-blue-50 p-3 rounded-lg hover:bg-blue-100 transition-all">
+                    <i class="bi bi-emoji-smile text-2xl text-blue-500"></i>
+                    <p>Sweet Smiles</p>
+                </div>
+                <div class="bg-green-50 p-3 rounded-lg hover:bg-green-100 transition-all">
+                    <i class="bi bi-magic text-2xl text-green-500"></i>
+                    <p>Amazing Dreams</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Message -->
+        <div class="text-center mt-8 pb-4">
+            <div class="bg-pink-50 rounded-lg p-6 mb-6">
+                <p class="fancy-text text-2xl text-pink-600 mb-2">Dear Himani,</p>
+                <p class="text-gray-700 leading-relaxed">
+                    You're someone who makes the world brighter just by being in it. Your kindness, intelligence, and beautiful spirit inspire everyone around you. As you celebrate another year of life, know that you're cherished more than words can express. May all your dreams take flight and may happiness follow you wherever you go!
+                </p>
+            </div>
+            <button id="celebrateBtn" class="mt-6 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-3 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-200">
+                Celebrate Himani! 🎉
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Virtual Candle Functionality
+        document.getElementById('blowCandleBtn').addEventListener('click', function() {
+            const flame = document.getElementById('flame');
+            const candle = document.getElementById('candle');
+            
+            // Animate flame going out
+            gsap.to(flame, {
+                scale: 0,
+                opacity: 0,
+                duration: 0.5,
+                ease: "power2.out",
+                onComplete: function() {
+                    flame.style.display = 'none';
+                    
+                    // Show smoke effect
+                    for (let i = 0; i < 5; i++) {
+                        setTimeout(() => {
+                            const smoke = document.createElement('div');
+                            smoke.style.width = '10px';
+                            smoke.style.height = '20px';
+                            smoke.style.background = 'rgba(200, 200, 200, 0.7)';
+                            smoke.style.borderRadius = '50%';
+                            smoke.style.position = 'absolute';
+                            smoke.style.top = '-30px';
+                            smoke.style.left = '50%';
+                            smoke.style.transform = 'translateX(-50%)';
+                            candle.appendChild(smoke);
+                            
+                            gsap.to(smoke, {
+                                y: -50,
+                                x: Math.random() * 40 - 20,
+                                opacity: 0,
+                                scale: 2,
+                                duration: 2,
+                                onComplete: () => smoke.remove()
+                            });
+                        }, i * 200);
+                    }
+                    
+                    // Show wish message
+                    setTimeout(() => {
+                        const wishMsg = document.createElement('div');
+                        wishMsg.innerHTML = '<p class="fancy-text text-xl text-pink-500 mt-4">Your wish will come true! ✨</p>';
+                        candle.parentNode.appendChild(wishMsg);
+                        
+                        gsap.from(wishMsg, {
+                            y: 20,
+                            opacity: 0,
+                            duration: 1
+                        });
+                    }, 1500);
+                }
+            });
+            
+            // Disable button after blowing candle
+            this.disabled = true;
+            this.innerHTML = '<i class="bi bi-check-circle"></i> Wish Made!';
+            this.classList.remove('bg-blue-500');
+            this.classList.add('bg-green-500');
+        });
+
+        // Gift Box Functionality
+        document.getElementById('openGiftBtn').addEventListener('click', function() {
+            const giftBox = document.getElementById('giftBox');
+            const giftMessage = document.getElementById('giftMessage');
+            
+            // Animate gift opening
+            gsap.to(giftBox, {
+                y: -20,
+                scale: 1.2,
+                duration: 0.5,
+                yoyo: true,
+                repeat: 1,
+                ease: "power1.inOut",
+                onComplete: function() {
+                    giftMessage.classList.remove('hidden');
+                    gsap.from(giftMessage, {
+                        y: 20,
+                        opacity: 0,
+                        duration: 1
+                    });
+                    
+                    // Change button after opening
+                    document.getElementById('openGiftBtn').disabled = true;
+                    document.getElementById('openGiftBtn').innerHTML = '<i class="bi bi-gift-fill"></i> Gift Opened!';
+                    document.getElementById('openGiftBtn').classList.remove('from-purple-500', 'to-pink-500');
+                    document.getElementById('openGiftBtn').classList.add('from-green-500', 'to-blue-500');
+                }
+            });
+        });
+
+        // Celebration Functionality
+        document.getElementById('celebrateBtn').addEventListener('click', () => {
+            // Confetti explosion
+            confetti({
+                particleCount: 200,
+                spread: 90,
+                origin: { y: 0.6 }
+            });
+
+            // Create multiple confetti bursts
+            const count = 300;
+            const defaults = {
+                origin: { y: 0.7 }
+            };
+
+            function fire(particleRatio, opts) {
+                confetti(Object.assign({}, defaults, opts, {
+                    particleCount: Math.floor(count * particleRatio)
+                }));
+            }
+
+            fire(0.25, {
+                spread: 26,
+                startVelocity: 55,
+                colors: ['#ff0000', '#00ff00', '#0000ff']
+            });
+
+            fire(0.2, {
+                spread: 60,
+                colors: ['#ff4081', '#ffeb3b', '#4caf50']
+            });
+
+            fire(0.35, {
+                spread: 100,
+                decay: 0.91,
+                scalar: 0.8,
+                colors: ['#9c27b0', '#2196f3', '#00bcd4']
+            });
+
+            fire(0.1, {
+                spread: 120,
+                startVelocity: 25,
+                decay: 0.92,
+                scalar: 1.2
+            });
+
+            fire(0.1, {
+                spread: 120,
+                startVelocity: 45,
+            });
+
+            // Animation for the card
+            gsap.to(".max-w-2xl", {
+                y: -20,
+                duration: 0.5,
+                yoyo: true,
+                repeat: 1,
+                ease: "power1.out"
+            });
+
+            // Heart pulse animation
+            gsap.to(".heart", {
+                scale: 1.5,
+                duration: 0.3,
+                yoyo: true,
+                repeat: 2,
+                ease: "power1.out"
+            });
+
+            // Photo gallery animation
+            gsap.from(".photo-item", {
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                stagger: 0.1,
+                ease: "back.out"
+            });
+            
+            // Balloon release animation
+            for (let i = 0; i < 10; i++) {
+                setTimeout(() => {
+                    const balloon = document.createElement('div');
+                    balloon.className = 'balloon';
+                    balloon.style.left = `${50 + Math.random() * 20}%`;
+                    balloon.style.bottom = '-50px';
+                    balloon.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
+                    balloon.style.animation = `float ${5 + Math.random() * 5}s ease-in forwards`;
+                    document.body.appendChild(balloon);
+                    
+                    // Remove balloon after animation
+                    setTimeout(() => {
+                        balloon.remove();
+                    }, 10000);
+                }, i * 300);
+            }
+        });
+
+        // Initial animation
+        gsap.from(".max-w-2xl", {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            ease: "power3.out"
+        });
+
+        // Floating balloons animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const colors = ['#ff4081', '#ffeb3b', '#4caf50', '#2196f3', '#9c27b0'];
+            for (let i = 0; i < 10; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.left = `${Math.random() * 90}%`;
+                balloon.style.top = `${Math.random() * 90}%`;
+                balloon.style.background = colors[Math.floor(Math.random() * colors.length)];
+                balloon.style.animationDelay = `${Math.random() * 5}s`;
+                balloon.style.width = `${30 + Math.random() * 30}px`;
+                balloon.style.height = `${40 + Math.random() * 30}px`;
+                document.body.appendChild(balloon);
+            }
+            
+            // Typewriter effect for special message
+            const messages = [
+                "Himani, you're amazing!",
+                "Wishing you endless happiness!",
+                "May all your dreams come true!",
+                "You make the world brighter!",
+                "Happy Birthday beautiful!"
+            ];
+            
+            let currentMessage = 0;
+            const typewriterElement = document.createElement('div');
+            typewriterElement.className = 'typewriter text-center fancy-text text-2xl text-pink-600 my-4';
+            document.querySelector('.text-center.mb-8').appendChild(typewriterElement);
+            
+            function typeWriter() {
+                let i = 0;
+                const txt = messages[currentMessage];
+                typewriterElement.innerHTML = '';
+                typewriterElement.style.width = '0';
+                typewriterElement.style.animation = 'none';
+                void typewriterElement.offsetWidth; // Trigger reflow
+                typewriterElement.style.animation = 'typing 3.5s steps(40, end), blink-caret .75s step-end infinite';
+                typewriterElement.textContent = txt;
+                
+                currentMessage = (currentMessage + 1) % messages.length;
+                setTimeout(typeWriter, 4000);
+            }
+            
+            setTimeout(typeWriter, 2000);
+        });
+    </script>
+</body>
+</html> 
